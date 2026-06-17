@@ -1,0 +1,21 @@
+# Run the migration in-cluster; the API key comes from a Secret you create:
+#   kubectl -n hanzo create secret generic paas-migrate --from-literal=apiKey=<KEY>
+apiVersion: batch/v1
+kind: Job
+metadata: { name: paas-migrate, namespace: hanzo }
+spec:
+  backoffLimit: 1
+  ttlSecondsAfterFinished: 600
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate
+          image: python:3.12-slim
+          command: ["sh","-c","pip install -q pyyaml && python3 /work/migrate.py /work/services.yaml"]
+          env:
+            - { name: X_API_KEY, valueFrom: { secretKeyRef: { name: paas-migrate, key: apiKey } } }
+          volumeMounts: [{ name: work, mountPath: /work }]
+      volumes:
+        - name: work
+          configMap: { name: paas-migrate-src }

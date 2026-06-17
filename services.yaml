@@ -1,0 +1,9 @@
+# Inventory of services to register on the PaaS. Add one block per service.
+# build: nixpacks | dockerfile | railpack | static | heroku
+services:
+  # already prepped with `make ci`:
+  - { name: drive,   project: hanzo, owner: hanzoai, repo: drive,   branch: main, build: nixpacks }
+  - { name: audit,   project: hanzo, owner: hanzoai, repo: audit,   branch: main, build: nixpacks }
+  - { name: sqlite3, project: hanzo, owner: hanzoai, repo: sqlite3, branch: main, build: nixpacks }
+  # universe ecosystems — extend per repo (lux / zoo / hanzo / bootnode):
+  # - { name: luxd,   project: lux,  owner: luxfi,   repo: node,  branch: main, build: dockerfile }
