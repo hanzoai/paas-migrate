@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/hero.svg" alt="paas-migrate" width="880"></p>
+
 # paas-migrate
 
 Registers Hanzo services on the PaaS (**platform.hanzo.ai**) via its API and
